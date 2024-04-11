@@ -78,7 +78,7 @@ export async function login({
     async () => {
       await db.update(users).set({ token: null }).where(eq(users.email, email));
     },
-    24 * 60 * 60 * 1000
+    24 * 60 * 60 * 1000,
   );
 }
 
@@ -92,7 +92,7 @@ export async function validate(token: string) {
     cookies().set(
       sessionCookie.name,
       sessionCookie.value,
-      sessionCookie.attributes
+      sessionCookie.attributes,
     );
 
     return {
@@ -122,14 +122,14 @@ export default async function getSession() {
         cookies().set(
           sessionCookie.name,
           sessionCookie.value,
-          sessionCookie.attributes
+          sessionCookie.attributes,
         );
       } else if (!result.session) {
         const sessionCookie = lucia.createBlankSessionCookie();
         cookies().set(
           sessionCookie.name,
           sessionCookie.value,
-          sessionCookie.attributes
+          sessionCookie.attributes,
         );
       }
     } catch (error) {
@@ -161,13 +161,13 @@ export async function logout(): Promise<ActionResult> {
   cookies().set(
     sessionCookie.name,
     sessionCookie.value,
-    sessionCookie.attributes
+    sessionCookie.attributes,
   );
   return redirect("/login");
 }
 
 export async function getUserByEmail(
-  email: string
+  email: string,
 ): Promise<UserType | undefined> {
   try {
     return await db.query.users.findFirst({

@@ -9,7 +9,7 @@ async function page() {
   if (session) redirect("/");
 
   return (
-    <div className='h-screen w-screen grid place-content-center'>
+    <div className="h-screen w-screen grid place-content-center">
       <LoginClientPage />
     </div>
   );

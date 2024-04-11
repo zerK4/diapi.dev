@@ -36,7 +36,6 @@ function LoginClientPage() {
     toast.promise(promise, {
       loading: "Logging in...",
       success: (res: any) => {
-        console.log(res, "the resonse");
         if (res.status === 404) {
           setNoAccount(true);
         }
@@ -49,8 +48,6 @@ function LoginClientPage() {
       },
       error: "Something went wrong",
     });
-
-    console.log(data);
   }
 
   if (success) {

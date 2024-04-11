@@ -14,7 +14,6 @@ export async function GET(
   } = context;
 
   const [user] = await db.select().from(users).where(eq(users.token, token));
-  console.log(user, "the user");
   if (user === undefined) {
     return NextResponse.json({ success: false });
   }
@@ -22,7 +21,6 @@ export async function GET(
   const session = await lucia.createSession(user.id, {});
   const sessionCookie = lucia.createSessionCookie(session.id);
 
-  console.log(sessionCookie, "the session cookie");
   cookies().set(
     sessionCookie.name,
     sessionCookie.value,

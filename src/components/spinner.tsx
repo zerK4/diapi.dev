@@ -8,7 +8,7 @@ function Spinner(props: React.HTMLAttributes<HTMLDivElement>) {
       {...props}
       className={cn("flex items-center justify-center", props.className)}
     >
-      <Loader className='animate-spin h-full w-full' />
+      <Loader className="animate-spin h-full w-full" />
     </div>
   );
 }
