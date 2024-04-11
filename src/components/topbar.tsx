@@ -7,16 +7,13 @@ import WorkspaceDropdown from "./workspaceDropdown";
 import UserDropdown from "./userDropdown";
 
 function Topbar({ user }: { user: UserType }) {
-  useEffect(() => {
-    console.log(user, "the session");
-  }, []);
   return (
-    <div className="sticky top-0 w-full px-2 md:px-36 lg:px-[15rem] flex justify-between h-16 items-center">
-      <div className="flex items-center gap-2">
+    <div className='sticky top-0 w-full px-2 md:px-36 lg:px-[15rem] flex justify-between h-16 items-center'>
+      <div className='flex items-center gap-2'>
         <h1>diapi</h1>
         <Separator
-          className="-rotate-[55deg] w-6 bg-zinc-700"
-          orientation="horizontal"
+          className='-rotate-[55deg] w-6 bg-zinc-700'
+          orientation='horizontal'
         />
         <WorkspaceDropdown />
       </div>

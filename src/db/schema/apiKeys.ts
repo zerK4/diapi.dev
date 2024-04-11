@@ -1,7 +1,7 @@
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { v4 } from "uuid";
 import { contents } from "./contents";
-import { relations } from "drizzle-orm";
+import { InferSelectModel, relations } from "drizzle-orm";
 import { users } from "./users";
 
 export const apiKeys = sqliteTable("api_keys", {
@@ -10,6 +10,7 @@ export const apiKeys = sqliteTable("api_keys", {
     .notNull()
     .$defaultFn(() => v4()),
   key: text("key").notNull(),
+  name: text("name").notNull(),
   contentId: text("content_id")
     .notNull()
     .references(() => contents.id, {
@@ -38,3 +39,5 @@ export const apiKeysRelations = relations(apiKeys, ({ one }) => ({
     relationName: "user_relation",
   }),
 }));
+
+export type ApiKeyType = InferSelectModel<typeof apiKeys>;

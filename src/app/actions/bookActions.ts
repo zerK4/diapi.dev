@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/db";
-import { ContentType, contents } from "@/db/schema";
+import { ContentType, FullContentType, contents } from "@/db/schema";
 import { bookSchema } from "@/schema/bookSchema";
 import { z } from "zod";
 import getSession from "./authActions";
@@ -65,7 +65,7 @@ export async function getAllUserBooks(): Promise<{
 
 export async function getBookById(id: string): Promise<{
   message: string;
-  data?: ContentType;
+  data?: FullContentType;
 }> {
   const { session } = await getSession();
 

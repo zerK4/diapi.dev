@@ -45,6 +45,7 @@
     "react-hook-form": "^7.51.2",
     "react-json-pretty": "^2.2.0",
     "resend": "^3.2.0",
+    "short-uuid": "^4.2.2",
     "sonner": "^1.4.41",
     "tailwind-merge": "^2.2.2",
     "tailwindcss-animate": "^1.0.7",

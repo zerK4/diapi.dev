@@ -1,5 +1,6 @@
 "use client";
 
+import { ActionsDropdown } from "@/components/book/actionsDropdown";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -11,7 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ContentType } from "@/db/schema";
+import { ContentType, FullContentType } from "@/db/schema";
 import { useBook } from "@/store/book";
 import { ColumnDef } from "@tanstack/react-table";
 import {
@@ -23,7 +24,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
-export const columns: ColumnDef<ContentType>[] = [
+export const columns: ColumnDef<FullContentType>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -49,13 +50,21 @@ export const columns: ColumnDef<ContentType>[] = [
     header: "Name",
     cell: ({ row }) => {
       return (
-        <Link
-          href={`/books/${row.original.id}`}
-          className='flex items-center gap-2'
-        >
-          <Link2Icon size={16} />
-          {row.original.name}
-        </Link>
+        <div className='flex flex-col gap-1'>
+          <Link
+            href={`/books/${row.original.id}`}
+            className='flex items-center gap-2 font-bold text-lg'
+          >
+            <Link2Icon size={16} />
+            {row.original.name}
+          </Link>
+          <span>
+            Content length:{" "}
+            {Array.isArray(row.original.content)
+              ? row.original.content.length
+              : 0}
+          </span>
+        </div>
       );
     },
   },
@@ -83,7 +92,7 @@ export const columns: ColumnDef<ContentType>[] = [
     cell: ({ row }) => {
       return (
         <div className='w-full flex justify-end'>
-          <ActionsDropdown row={row}>
+          <ActionsDropdown book={row.original}>
             <>
               <DropdownMenuItem className='flex items-center gap-2'>
                 <CopySlash size={16} />
@@ -100,35 +109,3 @@ export const columns: ColumnDef<ContentType>[] = [
     },
   },
 ];
-
-const ActionsDropdown = ({
-  children = null,
-  row,
-}: {
-  children?: React.ReactNode;
-  row?: any;
-}) => {
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant='ghost' className='h-8 w-8 p-0'>
-          <span className='sr-only'>Open menu</span>
-          <MoreHorizontal className='h-4 w-4' />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align='end' className='min-w-[12rem]'>
-        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-        <DropdownMenuGroup>
-          {children}
-          <DropdownMenuItem
-            onClick={() => useBook.getState().removeBook(row.original.id)}
-            className='flex items-center gap-2'
-          >
-            <Trash size={16} className='text-red-500' />
-            Delete
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
-};

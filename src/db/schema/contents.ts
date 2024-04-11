@@ -1,8 +1,8 @@
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { v4 } from "uuid";
-import { users } from "./users";
+import { UserType, users } from "./users";
 import { InferSelectModel, relations } from "drizzle-orm";
-import { apiKeys } from "./apiKeys";
+import { ApiKeyType, apiKeys } from "./apiKeys";
 
 export const contents = sqliteTable("contents", {
   id: text("id")
@@ -31,3 +31,7 @@ export const contentsRelations = relations(contents, ({ one, many }) => ({
 }));
 
 export type ContentType = InferSelectModel<typeof contents>;
+export type FullContentType = ContentType & {
+  apiKeys: ApiKeyType[];
+  user: UserType;
+};

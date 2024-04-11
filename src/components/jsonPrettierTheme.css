@@ -2,7 +2,7 @@
   line-height: 1.3;
   @apply dark:text-lime-500 text-blue-500;
   background: --var(--background);
-  overflow: auto;
+  overflow: hidden;
 }
 .__json-pretty__ .__json-key__ {
   color: #f92672;

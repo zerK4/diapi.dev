@@ -1,4 +1,4 @@
-import { ContentType } from "@/db/schema";
+import { ContentType, FullContentType } from "@/db/schema";
 import {
   Sheet,
   SheetContent,
@@ -12,8 +12,9 @@ export const SettingsSheet = ({
   data,
 }: {
   children: React.ReactNode;
-  data: ContentType;
+  data: FullContentType;
 }) => {
+  console.log(data.apiKeys, "this is data");
   return (
     <Sheet>
       <SheetTrigger asChild>{children}</SheetTrigger>
@@ -21,7 +22,9 @@ export const SettingsSheet = ({
         <SheetHeader>
           <SheetTitle>{data.name}</SheetTitle>
         </SheetHeader>
-        <div className='my-4'>{data.userId}</div>
+        <div className='my-4'>
+          {data.apiKeys?.length === 0 ? <div>add</div> : <div>remove</div>}
+        </div>
       </SheetContent>
     </Sheet>
   );
