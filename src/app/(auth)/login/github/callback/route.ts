@@ -108,6 +108,11 @@ export async function GET(request: Request): Promise<Response> {
       })
       .returning();
 
+    // await fetch(`${process.env.BACKEND_URL}/api/v1/config/sync`);
+    // await fetch(
+    //   `${process.env.BACKEND_URL}/api/v1/auth/register/${newUser.id}`
+    // );
+
     const session = await lucia.createSession(newUser.id, {});
     const sessionCookie = lucia.createSessionCookie(session.id);
     cookies().set(

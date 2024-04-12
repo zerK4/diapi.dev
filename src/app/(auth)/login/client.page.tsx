@@ -19,10 +19,13 @@ import Github from "@/components/icons/github";
 import { login } from "@/app/actions/authActions";
 import { toast } from "sonner";
 import Link from "next/link";
+import Spinner from "@/components/spinner";
+import { cn } from "@/lib/utils";
 
 function LoginClientPage() {
   const [noAccount, setNoAccount] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const form = useForm<z.infer<typeof authSchema>>({
     resolver: zodResolver(authSchema),
@@ -65,15 +68,15 @@ function LoginClientPage() {
 
   return (
     <div className='max-w-auto md:w-[23rem] px-4'>
-      <div className='flex flex-col w-full justify-center my-6 gap-3'>
+      <div className='flex flex-col w-full items-center my-6 gap-3'>
         <h2 className='text-2xl font-bold'>Log in to your account</h2>
-        <p className='text-zinc-500 text-sm'>
+        {/* <p className='text-zinc-500 text-sm'>
           If you do not have an account we will prompt you to sign up.
-        </p>
+        </p> */}
       </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className='space-y-4'>
+          {/* <div className='space-y-4'>
             <FormField
               control={form.control}
               name='email'
@@ -101,20 +104,35 @@ function LoginClientPage() {
                   </FormItem>
                 )}
               />
+            )} 
+          </div>*/}
+          <div
+            className={cn(
+              "flex flex-col gap-2 mt-4 ease-in-out transition-all duration-300",
+              loading && "items-center"
             )}
-          </div>
-          <div className='flex flex-col gap-2 mt-4'>
-            <Button type='submit' className='w-full'>
+          >
+            {/* <Button type='submit' className='w-full'>
               Submit
-            </Button>
+            </Button> */}
             <Link href='/login/github'>
               <Button
+                onClick={() => setLoading(true)}
                 variant={"outline"}
-                className='w-full flex justify-center gap-2'
+                className={cn(
+                  "w-full flex justify-center gap-2 ease-in-out transition-all duration-300",
+                  loading && "w-10 p-0 rounded-full"
+                )}
                 type='button'
               >
-                <Github height={24} width={24} />
-                <span>Sign in with Github</span>
+                {loading ? (
+                  <Spinner />
+                ) : (
+                  <>
+                    <Github height={24} width={24} />
+                    <span>Sign in with Github</span>
+                  </>
+                )}
               </Button>
             </Link>
           </div>

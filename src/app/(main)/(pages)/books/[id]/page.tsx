@@ -1,4 +1,4 @@
-import { getBookById } from "@/app/actions/bookActions";
+import { getContentById } from "@/app/actions/bookActions";
 import { AddContent } from "@/components/book/addContent";
 import { BookActionsDropdown } from "@/components/book/bookActionsDropdown";
 import EmptyPage from "@/components/emptyPage";
@@ -10,7 +10,7 @@ import { redirect } from "next/navigation";
 import React from "react";
 
 async function page({ params }: { params: { id: string } }) {
-  const { message, data } = await getBookById(params.id);
+  const { message, data } = await getContentById(params.id);
 
   if (!data) redirect("/books");
 

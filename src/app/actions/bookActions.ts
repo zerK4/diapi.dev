@@ -63,7 +63,7 @@ export async function getAllUserBooks(): Promise<{
   }
 }
 
-export async function getBookById(id: string): Promise<{
+export async function getContentById(id: string): Promise<{
   message: string;
   data?: FullContentType;
 }> {
