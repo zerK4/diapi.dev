@@ -61,18 +61,22 @@ export async function GET(request: Request): Promise<Response> {
           key !== "updated_at"
         ) {
           console.log(key, githubUser[key as keyof GitHubUser], "here");
-          if (key === "github_id") {
-            await db.update(users).set({
-              [key as keyof typeof existingUser]: githubUser.id,
-            });
-          } else if (key === "username") {
-            await db.update(users).set({
-              [key as keyof typeof existingUser]: githubUser.login,
-            });
-          } else {
-            await db.update(users).set({
-              [key]: githubUser[key as keyof GitHubUser],
-            });
+          try {
+            if (key === "github_id") {
+              await db.update(users).set({
+                [key as keyof typeof existingUser]: githubUser.id,
+              });
+            } else if (key === "username") {
+              await db.update(users).set({
+                [key as keyof typeof existingUser]: githubUser.login,
+              });
+            } else {
+              await db.update(users).set({
+                [key]: githubUser[key as keyof GitHubUser],
+              });
+            }
+          } catch (err) {
+            console.log(err, "error");
           }
         }
       });
