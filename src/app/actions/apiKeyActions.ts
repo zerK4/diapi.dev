@@ -7,6 +7,7 @@ import { apiKeys } from "../../db/schema";
 import { generate } from "short-uuid";
 import { v4 } from "uuid";
 import { revalidatePath } from "next/cache";
+import { and, eq } from "drizzle-orm";
 
 export async function createApiKey(bookId: string, name: string) {
   const { session } = await getSession();
@@ -26,6 +27,24 @@ export async function createApiKey(bookId: string, name: string) {
       message: "API key successfully created.",
       data: key,
     };
+  } catch (error) {
+    console.log(error);
+
+    throw error;
+  }
+}
+
+export async function deleteApiKey(keyId: string) {
+  const { session } = await getSession();
+
+  if (!session) redirect("/login");
+  try {
+    await db
+      .delete(apiKeys)
+      .where(and(eq(apiKeys.key, keyId), eq(apiKeys.userId, session.userId)));
+
+    revalidatePath(`/books/`);
+    revalidatePath(`/settings`);
   } catch (error) {
     console.log(error);
 

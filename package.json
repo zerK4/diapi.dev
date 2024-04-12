@@ -30,6 +30,7 @@
     "@types/react-json-pretty": "^2.2.0",
     "@types/uuid": "^9.0.8",
     "animejs": "^3.2.2",
+    "arctic": "^1.5.0",
     "axios": "^1.6.8",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",

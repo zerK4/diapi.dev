@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button";
 import Github from "@/components/icons/github";
 import { login } from "@/app/actions/authActions";
 import { toast } from "sonner";
+import Link from "next/link";
 
 function LoginClientPage() {
   const [noAccount, setNoAccount] = useState(false);
@@ -106,13 +107,16 @@ function LoginClientPage() {
             <Button type='submit' className='w-full'>
               Submit
             </Button>
-            <Button
-              className='w-full bg-zinc-800 text-white flex justify-center gap-2 hover:bg-zinc-900'
-              type='button'
-            >
-              <Github height={24} width={24} />
-              <span>Sign in with Github</span>
-            </Button>
+            <Link href='/login/github'>
+              <Button
+                variant={"outline"}
+                className='w-full flex justify-center gap-2'
+                type='button'
+              >
+                <Github height={24} width={24} />
+                <span>Sign in with Github</span>
+              </Button>
+            </Link>
           </div>
         </form>
       </Form>

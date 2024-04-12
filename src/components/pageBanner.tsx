@@ -28,17 +28,20 @@ function PageBanner({
   }, [titleRef, pathName]);
 
   return (
-    <div className='h-40 flex items-center w-full justify-between px-2 md:px-36 lg:px-[15rem] border-b border-zinc-100 dark:border-zinc-900'>
+    <div className='h-40 flex relative items-center w-full justify-between px-2 md:px-36 lg:px-[15rem] border-b border-zinc-100 dark:border-zinc-900'>
       <h2
         ref={titleRef}
         className='text-2xl font-bold opacity-0 translate-y-10'
       >
         {!title &&
-          pathName.split("/")[1].charAt(0).toUpperCase() +
-            pathName.split("/")[1].slice(1)}
+          pathName
+            .split("/")
+            [pathName.split("/").length - 1].charAt(0)
+            .toUpperCase() +
+            pathName.split("/")[pathName.split("/").length - 1].slice(1)}
         {title}
       </h2>
-      <div>{children}</div>
+      <div id='page-banner-children'>{children}</div>
       {add && <AddBook />}
     </div>
   );
