@@ -21,8 +21,8 @@ async function page() {
   return (
     <div>
       <PageBanner />
-      {!data && <EmptyPage content='Nothing here...' />}
-      <div className='px-2 md:px-36 lg:px-[15rem] grid grid-cols-1 mt-2 gap-2'>
+      {!data && <EmptyPage content="Nothing here..." />}
+      <div className="px-2 md:px-36 lg:px-[15rem] grid grid-cols-1 mt-2 gap-2">
         <DataTable columns={columns as any} data={data} />
         {/* {data.map((book) => (
           <Card

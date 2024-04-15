@@ -33,20 +33,20 @@ async function page() {
       <AddKey />
       {user?.contents.map((content) => {
         return content.apiKeys.map((key, i) => (
-          <div key={i} className='flex items-center justify-between'>
-            <h2 className='text-sm'>{content.name}</h2>
-            <span className='max-w-[10rem] whitespace-nowrap overflow-hidden hover:opacity-50 cursor-pointer text-sm'>
+          <div key={i} className="flex items-center justify-between">
+            <h2 className="text-sm">{content.name}</h2>
+            <span className="max-w-[10rem] whitespace-nowrap overflow-hidden hover:opacity-50 cursor-pointer text-sm">
               {key.key}
             </span>
             <DisplayDate
-              className='text-sm text-zinc-500'
+              className="text-sm text-zinc-500"
               date={key.createdAt}
             />
-            <div className='flex items-center gap-2'>
-              <CopyButton copyContent={key.key} className='h-8 w-8'>
+            <div className="flex items-center gap-2">
+              <CopyButton copyContent={key.key} className="h-8 w-8">
                 <Copy size={16} />
               </CopyButton>
-              <RemoveButton id={key.key} className='h-8 w-8'>
+              <RemoveButton id={key.key} className="h-8 w-8">
                 <Trash size={16} />
               </RemoveButton>
             </div>

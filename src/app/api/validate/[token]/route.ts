@@ -7,7 +7,7 @@ import { NextResponse } from "next/server";
 
 export async function GET(
   req: Request,
-  context: { params: { token: string } }
+  context: { params: { token: string } },
 ) {
   const {
     params: { token },
@@ -24,7 +24,7 @@ export async function GET(
   cookies().set(
     sessionCookie.name,
     sessionCookie.value,
-    sessionCookie.attributes
+    sessionCookie.attributes,
   );
 
   return NextResponse.json({ success: true });

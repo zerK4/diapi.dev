@@ -1,27 +1,11 @@
 "use client";
 
 import { ActionsDropdown } from "@/components/book/actionsDropdown";
-import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { ContentType, FullContentType } from "@/db/schema";
-import { useBook } from "@/store/book";
+import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import { FullContentType } from "@/db/schema";
 import { ColumnDef } from "@tanstack/react-table";
-import {
-  Copy,
-  CopySlash,
-  Link2Icon,
-  MoreHorizontal,
-  Trash,
-} from "lucide-react";
+import { Copy, CopySlash, Link2Icon } from "lucide-react";
 import Link from "next/link";
 
 export const columns: ColumnDef<FullContentType>[] = [
@@ -34,14 +18,14 @@ export const columns: ColumnDef<FullContentType>[] = [
           (table.getIsSomePageRowsSelected() && "indeterminate")
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label='Select all'
+        aria-label="Select all"
       />
     ),
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label='Select row'
+        aria-label="Select row"
       />
     ),
   },
@@ -50,10 +34,10 @@ export const columns: ColumnDef<FullContentType>[] = [
     header: "Name",
     cell: ({ row }) => {
       return (
-        <div className='flex flex-col gap-1'>
+        <div className="flex flex-col gap-1">
           <Link
             href={`/books/${row.original.id}`}
-            className='flex items-center gap-2 font-bold text-lg'
+            className="flex items-center gap-2 font-bold text-lg"
           >
             <Link2Icon size={16} />
             {row.original.name}
@@ -71,17 +55,17 @@ export const columns: ColumnDef<FullContentType>[] = [
   {
     accessorKey: "content",
     header: () => {
-      return <div className='w-full flex justify-center'>Content</div>;
+      return <div className="w-full flex justify-center">Content</div>;
     },
     cell: ({ row }) => {
-      return <div className='flex w-full justify-center'>asd</div>;
+      return <div className="flex w-full justify-center">asd</div>;
     },
   },
   {
     id: "actions",
     header: ({ table }) => {
       return (
-        <div className='w-full flex justify-end'>
+        <div className="w-full flex justify-end">
           {table.getIsAllPageRowsSelected() ||
           (table.getIsSomePageRowsSelected() && "indeterminate") ? (
             <ActionsDropdown />
@@ -91,14 +75,28 @@ export const columns: ColumnDef<FullContentType>[] = [
     },
     cell: ({ row }) => {
       return (
-        <div className='w-full flex justify-end'>
+        <div className="w-full flex justify-end">
           <ActionsDropdown book={row.original}>
             <>
-              <DropdownMenuItem className='flex items-center gap-2'>
+              <DropdownMenuItem
+                onClick={() =>
+                  window.navigator.clipboard.writeText(
+                    row.original.apiKeys[0].key,
+                  )
+                }
+                className="flex items-center gap-2"
+              >
                 <CopySlash size={16} />
                 Copy API key
               </DropdownMenuItem>
-              <DropdownMenuItem className='flex items-center gap-2'>
+              <DropdownMenuItem
+                onClick={() =>
+                  window.navigator.clipboard.writeText(
+                    `${process.env.NEXT_PUBLIC_AE}/${process.env.NEXT_PUBLIC_AEA}/books/${row.original.apiKeys[0].key}/all`,
+                  )
+                }
+                className="flex items-center gap-2"
+              >
                 <Copy size={16} />
                 Copy API endpoint
               </DropdownMenuItem>

@@ -14,13 +14,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en' suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head />
-      <body className='overflow-x-hidden'>
-        <ThemeProvider attribute='class' defaultTheme='dark' enableSystem>
+      <body className="overflow-x-hidden">
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           <>
             {children}
-            <Toaster position='top-right' closeButton />
+            <Toaster position="top-right" closeButton />
           </>
         </ThemeProvider>
       </body>

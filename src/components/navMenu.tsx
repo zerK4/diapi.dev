@@ -28,13 +28,13 @@ function NavMenu({
             key={index}
             className={cn(
               "flex items-center gap-1 h-full px-1 pb-2",
-              pathname === item.link ? "border-b border-orange-500" : ""
+              pathname === item.link ? "border-b border-orange-500" : "",
             )}
           >
             <span
               className={cn(
                 "text-zinc-800 dark:text-zinc-300  text-sm hover:text-zinc-300 dark:hover:text-zinc-700 ease-in-out duration-300",
-                item.disabled ? "opacity-30 pointer-events-none" : ""
+                item.disabled ? "opacity-30 pointer-events-none" : "",
               )}
             >
               {item.name}

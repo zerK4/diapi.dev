@@ -39,7 +39,7 @@ export async function GET(request: Request): Promise<Response> {
         primary: boolean;
         verified: boolean;
         visibility: string;
-      }) => email.primary
+      }) => email.primary,
     );
 
     console.log(emails, githubUser, primaryEmail, "here user");
@@ -48,7 +48,7 @@ export async function GET(request: Request): Promise<Response> {
     const existingUser = await db.query.users.findFirst({
       where: or(
         eq(users.github_id, githubUser.id),
-        eq(users.email, primaryEmail.email)
+        eq(users.email, primaryEmail.email),
       ),
     });
 
@@ -86,7 +86,7 @@ export async function GET(request: Request): Promise<Response> {
       cookies().set(
         sessionCookie.name,
         sessionCookie.value,
-        sessionCookie.attributes
+        sessionCookie.attributes,
       );
       return new Response(null, {
         status: 302,
@@ -118,7 +118,7 @@ export async function GET(request: Request): Promise<Response> {
     cookies().set(
       sessionCookie.name,
       sessionCookie.value,
-      sessionCookie.attributes
+      sessionCookie.attributes,
     );
     return new Response(null, {
       status: 302,

@@ -49,7 +49,7 @@ function AddBook() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className='flex items-center gap-2 px-0 pl-3 pr-4'>
+        <Button className="flex items-center gap-2 px-0 pl-3 pr-4">
           <Plus size={16} />
           Add
         </Button>
@@ -63,7 +63,7 @@ function AddBook() {
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <FormField
                 control={form.control}
-                name='name'
+                name="name"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Name</FormLabel>
