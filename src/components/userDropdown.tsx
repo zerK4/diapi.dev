@@ -21,14 +21,14 @@ function UserDropdown({ user }: { user: UserType }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button className='bg-transparent hover:bg-zinc-500/20 text-foreground w-10 h-10 flex justify-center items-center p-0 rounded-full border'>
+        <Button className="bg-transparent hover:bg-zinc-500/20 text-foreground w-10 h-10 flex justify-center items-center p-0 rounded-full border">
           {user.avatar_url ? (
             <Image
               src={user.avatar_url}
               alt={user.name}
               width={40}
               height={40}
-              className='rounded-full'
+              className="rounded-full"
             />
           ) : (
             user &&
@@ -40,26 +40,26 @@ function UserDropdown({ user }: { user: UserType }) {
           )}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className='min-w-[13rem] p-0' align='end'>
-        <DropdownMenuGroup className='flex flex-col gap-1 bg-zinc-100 dark:bg-zinc-900/50 h-full px-4 py-4'>
-          <h2 className='text-md font-semibold'>Profile</h2>
+      <DropdownMenuContent className="min-w-[13rem] p-0" align="end">
+        <DropdownMenuGroup className="flex flex-col gap-1 bg-zinc-100 dark:bg-zinc-900/50 h-full px-4 py-4">
+          <h2 className="text-md font-semibold">Profile</h2>
         </DropdownMenuGroup>
-        <Separator className='' />
-        <DropdownMenuGroup className='py-2 px-1'>
+        <Separator className="" />
+        <DropdownMenuGroup className="py-2 px-1">
           <Link href={"/settings"}>
-            <DropdownMenuItem className='flex items-center gap-2 group/menuItem px-2'>
+            <DropdownMenuItem className="flex items-center gap-2 group/menuItem px-2">
               <Settings
                 size={14}
-                className='group-hover/menuItem:animate-spin'
+                className="group-hover/menuItem:animate-spin"
               />
               <span>Settings</span>
             </DropdownMenuItem>
           </Link>
           <DropdownMenuItem
             onClick={logout}
-            className='flex items-center gap-2 group/menuItem px-2'
+            className="flex items-center gap-2 group/menuItem px-2"
           >
-            <LogOut size={14} className='group-hover/menuItem:animate-bounce' />
+            <LogOut size={14} className="group-hover/menuItem:animate-bounce" />
             <span>Logout</span>
           </DropdownMenuItem>
         </DropdownMenuGroup>

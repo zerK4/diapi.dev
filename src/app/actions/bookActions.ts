@@ -8,6 +8,7 @@ import getSession from "./authActions";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { and, eq } from "drizzle-orm";
+import axios from "axios";
 
 export async function createBook(book: z.infer<typeof bookSchema>): Promise<{
   message: string;
@@ -138,6 +139,38 @@ export async function removeBook(bookId: string) {
   try {
     await db.delete(contents).where(eq(contents.id, bookId));
     revalidatePath("/books/");
+  } catch (err) {
+    console.log(err);
+
+    throw err;
+  }
+}
+
+export async function updateBookContent({
+  content,
+  key,
+}: {
+  content: ContentType["content"];
+  key: string;
+}) {
+  const { session } = await getSession();
+  if (!session) redirect("/login");
+
+  try {
+    const { data } = await axios({
+      method: "POST",
+      url: `${process.env.NEXT_PUBLIC_AE}/${process.env.NEXT_PUBLIC_AEA}/books/${key}`,
+      data: {
+        clear: true,
+        data: content,
+      },
+    });
+
+    console.log(data, "here");
+
+    revalidatePath("/books/");
+
+    return data;
   } catch (err) {
     console.log(err);
 

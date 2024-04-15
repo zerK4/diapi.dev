@@ -22,7 +22,7 @@ export const SettingsSheet = ({
         <SheetHeader>
           <SheetTitle>{data.name}</SheetTitle>
         </SheetHeader>
-        <div className='my-4'>
+        <div className="my-4">
           {data.apiKeys?.length === 0 ? <div>add</div> : <div>remove</div>}
         </div>
       </SheetContent>

@@ -17,13 +17,13 @@ function AddKey() {
     setTeleport(el);
 
     createPortal(
-      <div id='added-key'>
+      <div id="added-key">
         <Button>
           <Plus size={16} />
           Add API Key
         </Button>
       </div>,
-      el as Element
+      el as Element,
     );
 
     console.log(el, teleport, "ads");

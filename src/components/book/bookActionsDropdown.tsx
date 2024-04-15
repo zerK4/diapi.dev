@@ -32,14 +32,21 @@ export const BookActionsDropdown = ({ data }: { data: FullContentType }) => {
       <DropdownMenuTrigger asChild>
         <Button>Actions</Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align='end' className='p-0 min-w-[12rem]'>
-        <DropdownMenuGroup className='px-3 border-b py-4'>
-          <h2 className='text-sm font-bold'>Book Actions</h2>
+      <DropdownMenuContent align="end" className="p-0 min-w-[12rem]">
+        <DropdownMenuGroup className="px-3 border-b py-4">
+          <h2 className="text-sm font-bold">Book Actions</h2>
         </DropdownMenuGroup>
-        <DropdownMenuGroup className='py-2 px-1'>
+        <DropdownMenuGroup className="py-2 px-1">
           {data.apiKeys.length !== 0 ? (
             <>
-              <DropdownMenuItem className='flex gap-2 items-center'>
+              <DropdownMenuItem
+                onClick={() =>
+                  window.navigator.clipboard.writeText(
+                    `${process.env.NEXT_PUBLIC_AE}/${process.env.NEXT_PUBLIC_AEA}/books/${data.apiKeys[0].key}/all`,
+                  )
+                }
+                className="flex gap-2 items-center"
+              >
                 <Copy size={16} />
                 Copy rest endpoint
               </DropdownMenuItem>
@@ -47,7 +54,7 @@ export const BookActionsDropdown = ({ data }: { data: FullContentType }) => {
                 onClick={() =>
                   window.navigator.clipboard.writeText(data.apiKeys[0].key)
                 }
-                className='flex gap-2 items-center'
+                className="flex gap-2 items-center"
               >
                 <Copy size={16} />
                 Copy api key
@@ -56,7 +63,7 @@ export const BookActionsDropdown = ({ data }: { data: FullContentType }) => {
           ) : (
             <AddApiKey data={data}>
               <Button
-                className='p-0 h-8 px-2 flex w-full justify-start items-center gap-2'
+                className="p-0 h-8 px-2 flex w-full justify-start items-center gap-2"
                 variant={"ghost"}
               >
                 <Plus size={16} />
@@ -64,15 +71,11 @@ export const BookActionsDropdown = ({ data }: { data: FullContentType }) => {
               </Button>
             </AddApiKey>
           )}
-          <DropdownMenuItem className='flex gap-2 items-center'>
-            <Sparkles size={16} />
-            Populate
-          </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() => removeBook(data.id)}
-            className='flex gap-2 items-center'
+            className="flex gap-2 items-center"
           >
-            <Trash size={16} className='text-red-500' />
+            <Trash size={16} className="text-red-500" />
             Delete
           </DropdownMenuItem>
         </DropdownMenuGroup>
@@ -119,7 +122,7 @@ const AddApiKey = ({
           <Input
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder='Name'
+            placeholder="Name"
           />
         </div>
         <DialogFooter>
