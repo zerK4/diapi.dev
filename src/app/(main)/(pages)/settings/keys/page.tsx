@@ -1,37 +1,35 @@
 import getSession from "@/app/actions/authActions";
 // import AddKey from "@/components/addKey";
 import CopyButton from "@/components/copyButton";
+import { DataTable } from "@/components/dataTable";
 import DisplayDate from "@/components/displayDate";
 import RemoveButton from "@/components/removeButton";
 import { Button } from "@/components/ui/button";
 import { db } from "@/db";
-import { users } from "@/db/schema";
+import { apiKeys, users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { Copy, Plus, Trash } from "lucide-react";
 import { redirect } from "next/navigation";
 import React from "react";
+import { columns } from "./columns";
 
 async function page() {
   const { session } = await getSession();
 
   if (!session) redirect("/login");
 
-  const user = await db.query.users.findFirst({
-    where: eq(users.id, session.userId),
+  const tKeys = await db.query.apiKeys.findMany({
+    where: eq(apiKeys.userId, session.userId),
     with: {
-      apiKeys: true,
-      contents: {
-        with: {
-          apiKeys: true,
-        },
-      },
+      content: true,
     },
   });
 
   return (
     <div>
+      <DataTable columns={columns} data={tKeys} />
       {/* <AddKey /> */}
-      {user?.contents.map((content) => {
+      {/* {user?.contents.map((content) => {
         return content.apiKeys.map((key, i) => (
           <div key={i} className="flex items-center justify-between">
             <h2 className="text-sm">{content.name}</h2>
@@ -52,7 +50,7 @@ async function page() {
             </div>
           </div>
         ));
-      })}
+      })} */}
     </div>
   );
 }

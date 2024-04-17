@@ -41,3 +41,6 @@ export const apiKeysRelations = relations(apiKeys, ({ one }) => ({
 }));
 
 export type ApiKeyType = InferSelectModel<typeof apiKeys>;
+export type ExtendedApiKeyType = ApiKeyType & {
+  content: InferSelectModel<typeof contents>;
+};
