@@ -1,5 +1,5 @@
 import getSession from "@/app/actions/authActions";
-import AddKey from "@/components/addKey";
+// import AddKey from "@/components/addKey";
 import CopyButton from "@/components/copyButton";
 import DisplayDate from "@/components/displayDate";
 import RemoveButton from "@/components/removeButton";
@@ -30,7 +30,7 @@ async function page() {
 
   return (
     <div>
-      <AddKey />
+      {/* <AddKey /> */}
       {user?.contents.map((content) => {
         return content.apiKeys.map((key, i) => (
           <div key={i} className="flex items-center justify-between">

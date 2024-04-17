@@ -11,19 +11,7 @@ import {
 import { Button } from "../ui/button";
 import { Copy, Plus, Sparkles, Trash } from "lucide-react";
 import { useBook } from "@/store/book";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "../ui/dialog";
-import { Input } from "../ui/input";
-import { useState } from "react";
-import { createApiKey } from "@/app/actions/apiKeyActions";
-import { toast } from "sonner";
+import { AddKey } from "../addKey";
 
 export const BookActionsDropdown = ({ data }: { data: FullContentType }) => {
   const { removeBook } = useBook();
@@ -61,7 +49,7 @@ export const BookActionsDropdown = ({ data }: { data: FullContentType }) => {
               </DropdownMenuItem>
             </>
           ) : (
-            <AddApiKey data={data}>
+            <AddKey data={data}>
               <Button
                 className="p-0 h-8 px-2 flex w-full justify-start items-center gap-2"
                 variant={"ghost"}
@@ -69,7 +57,7 @@ export const BookActionsDropdown = ({ data }: { data: FullContentType }) => {
                 <Plus size={16} />
                 Add api key
               </Button>
-            </AddApiKey>
+            </AddKey>
           )}
           <DropdownMenuItem
             onClick={() => removeBook(data.id)}
@@ -81,54 +69,5 @@ export const BookActionsDropdown = ({ data }: { data: FullContentType }) => {
         </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
-  );
-};
-
-const AddApiKey = ({
-  children,
-  data,
-}: {
-  children: React.ReactNode;
-  data: FullContentType;
-}) => {
-  const [name, setName] = useState("");
-  const handleCreate = () => {
-    if (!name || name.length === 0) {
-      toast.error("Name cannot be empty");
-      return;
-    }
-
-    const promise = createApiKey(data.id, name);
-    toast.promise(promise, {
-      loading: "Creating api key...",
-      success: ({ data, message }) => {
-        return <div>{message}</div>;
-      },
-      error: "Something went wrong",
-    });
-  };
-  return (
-    <Dialog>
-      <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Add a API key</DialogTitle>
-          <DialogDescription>
-            This API key will be added and will take effect only for {data.name}
-            .
-          </DialogDescription>
-        </DialogHeader>
-        <div>
-          <Input
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Name"
-          />
-        </div>
-        <DialogFooter>
-          <Button onClick={handleCreate}>Save</Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
   );
 };

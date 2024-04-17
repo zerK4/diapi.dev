@@ -1,35 +1,66 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { createApiKey } from "@/app/actions/apiKeyActions";
+import { FullContentType } from "@/db/schema";
+import { useState } from "react";
+import { toast } from "sonner";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog";
+import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import { Plus } from "lucide-react";
-import { createPortal } from "react-dom";
 
-function AddKey() {
-  const [teleport, setTeleport] = useState<Element | null>(null);
-
-  useEffect(() => {
-    const el = document.getElementById("page-banner-children");
-    if (!el) {
-      setTeleport(null);
+export const AddKey = ({
+  children,
+  data,
+}: {
+  children: React.ReactNode;
+  data: FullContentType;
+}) => {
+  const [name, setName] = useState("");
+  const handleCreate = () => {
+    if (!name || name.length === 0) {
+      toast.error("Name cannot be empty");
       return;
     }
-    setTeleport(el);
 
-    createPortal(
-      <div id="added-key">
-        <Button>
-          <Plus size={16} />
-          Add API Key
-        </Button>
-      </div>,
-      el as Element,
-    );
-
-    console.log(el, teleport, "ads");
-  }, [teleport]);
-
-  return null;
-}
-
-export default AddKey;
+    const promise = createApiKey(data.id, name);
+    toast.promise(promise, {
+      loading: "Creating api key...",
+      success: ({ data, message }) => {
+        return <div>{message}</div>;
+      },
+      error: "Something went wrong",
+    });
+  };
+  return (
+    <Dialog>
+      <DialogTrigger asChild>{children}</DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Add a API key</DialogTitle>
+          <DialogDescription>
+            This API key will be added and will take effect only for {data.name}
+            .
+          </DialogDescription>
+        </DialogHeader>
+        <div>
+          <Input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Name"
+          />
+        </div>
+        <DialogFooter>
+          <Button onClick={handleCreate}>Save</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+};
