@@ -1,12 +1,10 @@
 "use client";
 
-import { AddKey } from "@/components/addKey";
 import CopyButton from "@/components/copyButton";
 import RemoveButton from "@/components/removeButton";
-import { Button } from "@/components/ui/button";
 import { ExtendedApiKeyType } from "@/db/schema";
 import { ColumnDef } from "@tanstack/react-table";
-import { Copy, Plus, Trash } from "lucide-react";
+import { Copy, Trash } from "lucide-react";
 
 export const columns: ColumnDef<ExtendedApiKeyType>[] = [
   {
@@ -36,15 +34,7 @@ export const columns: ColumnDef<ExtendedApiKeyType>[] = [
   },
   {
     accessorKey: "actions",
-    header: ({ table }) => {
-      return (
-        <div className="flex justify-end">
-          <Button className="h-8 w-8" size="icon">
-            <Plus size={16} />
-          </Button>
-        </div>
-      );
-    },
+    header: "",
     cell: ({ row }) => {
       return (
         <div className="flex gap-2 w-full justify-end">
