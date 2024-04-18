@@ -9,6 +9,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { and, eq } from "drizzle-orm";
 import axios from "axios";
+import { clientSync } from "@/lib/axios";
 
 export async function createBook(book: z.infer<typeof bookSchema>): Promise<{
   message: string;
@@ -24,6 +25,8 @@ export async function createBook(book: z.infer<typeof bookSchema>): Promise<{
         userId: session.userId,
       })
       .returning();
+
+    await clientSync();
 
     revalidatePath("/books/");
     return {
@@ -124,6 +127,8 @@ export async function addBookContent({
 
     revalidatePath(`/books/${bookId}`);
 
+    await clientSync();
+
     return {
       data: updated,
       message: "Book updated successfully.",
@@ -138,6 +143,9 @@ export async function addBookContent({
 export async function removeBook(bookId: string) {
   try {
     await db.delete(contents).where(eq(contents.id, bookId));
+
+    await clientSync();
+
     revalidatePath("/books/");
   } catch (err) {
     console.log(err);
@@ -165,10 +173,9 @@ export async function updateBookContent({
         data: content,
       },
     });
-
-    console.log(data, "here");
-
     revalidatePath("/books/");
+
+    await clientSync();
 
     return data;
   } catch (err) {

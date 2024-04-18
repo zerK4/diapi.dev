@@ -8,6 +8,7 @@ import { generate } from "short-uuid";
 import { v4 } from "uuid";
 import { revalidatePath } from "next/cache";
 import { and, eq } from "drizzle-orm";
+import { clientSync } from "@/lib/axios";
 
 export async function createApiKey(bookId: string, name: string) {
   const { session } = await getSession();
@@ -23,6 +24,9 @@ export async function createApiKey(bookId: string, name: string) {
     });
 
     revalidatePath(`/books/${bookId}`);
+
+    await clientSync();
+
     return {
       message: "API key successfully created.",
       data: key,
@@ -45,6 +49,7 @@ export async function deleteApiKey(keyId: string) {
 
     revalidatePath(`/books/`);
     revalidatePath(`/settings`);
+    await clientSync();
   } catch (error) {
     console.log(error);
 

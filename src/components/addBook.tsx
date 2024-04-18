@@ -36,6 +36,7 @@ function AddBook() {
   });
 
   function onSubmit(data: z.infer<typeof bookSchema>) {
+    console.log(data, " this is");
     const promise = createBook(data);
 
     toast.promise(promise, {
@@ -60,7 +61,10 @@ function AddBook() {
         </DialogHeader>
         <div>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="flex flex-col gap-2"
+            >
               <FormField
                 control={form.control}
                 name="name"
@@ -74,12 +78,10 @@ function AddBook() {
                   </FormItem>
                 )}
               />
+              <Button>Save</Button>
             </form>
           </Form>
         </div>
-        <DialogFooter>
-          <Button>Save</Button>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
