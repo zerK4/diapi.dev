@@ -14,6 +14,8 @@ export const users = sqliteTable("users", {
   github_id: text("github_id"),
   avatar_url: text("avatar_url"),
   username: text("username"),
+  databaseName: text("database_name"),
+  databaseToken: text("database_token"),
   token: text("token"),
   createdAt: integer("created_at").$defaultFn(() => Date.now()),
   updatedAt: integer("updated_at"),

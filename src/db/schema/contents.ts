@@ -12,6 +12,8 @@ export const contents = sqliteTable("contents", {
   content: text("content", {
     mode: "json",
   }),
+  reads: integer("reads").default(0),
+  writes: integer("writes").default(0),
   name: text("name").notNull(),
   userId: text("user_id")
     .notNull()

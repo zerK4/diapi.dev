@@ -5,7 +5,7 @@ import React, { useEffect, useRef } from "react";
 import anime from "animejs";
 import AddBook from "./addBook";
 // import { Button } from "./ui/button";
-// import { Diapi } from "../../../@diapi/src";
+// import { Diapi } from "diapio";
 
 function PageBanner({
   title = undefined,
@@ -19,12 +19,14 @@ function PageBanner({
   const pathName = usePathname();
   const titleRef = useRef<HTMLHeadingElement>(null);
   // const diapi = new Diapi(
-  //   "diapi-22bc91c8-4600-49e3-934e-d9823d1727a5-tpLoW1QT8eoX4Jntq4mQBK"
+  //   "diapi-03525a0b-78bc-4f1f-a0db-6fc4e6e0c30d-dqP3gupqzeMXqPDnSrZRLW",
   // );
 
   // const getSmth = async () => {
-  //   const { content } = await diapi.getAll();
-  //   console.log(content);
+  //   const { content, message } = await diapi.removeOne({
+  //     id: "",
+  //   });
+  //   console.log(content, message);
   // };
 
   useEffect(() => {

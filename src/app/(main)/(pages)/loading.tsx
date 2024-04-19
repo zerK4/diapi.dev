@@ -1,5 +1,4 @@
 import Spinner from "@/components/spinner";
-import { Loader } from "lucide-react";
 import React from "react";
 
 function loading() {
