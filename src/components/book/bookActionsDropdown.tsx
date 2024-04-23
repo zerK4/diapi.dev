@@ -40,6 +40,17 @@ export const BookActionsDropdown = ({ data }: { data: FullContentType }) => {
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() =>
+                  window.navigator.clipboard.writeText(
+                    `${process.env.NEXT_PUBLIC_AE}/${process.env.NEXT_PUBLIC_AEA}`,
+                  )
+                }
+                className="flex gap-2 items-center"
+              >
+                <Copy size={16} />
+                Copy base url
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() =>
                   window.navigator.clipboard.writeText(data.apiKeys[0].key)
                 }
                 className="flex gap-2 items-center"

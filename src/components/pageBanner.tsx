@@ -6,6 +6,7 @@ import anime from "animejs";
 import AddBook from "./addBook";
 // import { Button } from "./ui/button";
 // import { Diapi } from "diapio";
+// import { ContentApiResponse } from "../../diapio.config";
 
 function PageBanner({
   title = undefined,
@@ -18,15 +19,15 @@ function PageBanner({
 }) {
   const pathName = usePathname();
   const titleRef = useRef<HTMLHeadingElement>(null);
-  // const diapi = new Diapi(
-  //   "diapi-03525a0b-78bc-4f1f-a0db-6fc4e6e0c30d-dqP3gupqzeMXqPDnSrZRLW",
-  // );
+  // const diapi = new Diapi<ContentApiResponse>({
+  //   apiKey: "diapi-d9cd4bfb-da10-4595-8106-46f89f4e1e39-8oFZpMQe5CzJLmVHDQEA19",
+  //   baseUrl: "http://localhost:3002/api/v1",
+  // });
 
   // const getSmth = async () => {
-  //   const { content, message } = await diapi.removeOne({
-  //     id: "",
-  //   });
-  //   console.log(content, message);
+  //   const { message, content } = await diapi.getAll();
+
+  //   console.log(message, content, "asd");
   // };
 
   useEffect(() => {
