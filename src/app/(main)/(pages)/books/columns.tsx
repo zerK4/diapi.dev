@@ -4,6 +4,7 @@ import { ActionsDropdown } from "@/components/book/actionsDropdown";
 import { Checkbox } from "@/components/ui/checkbox";
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { FullContentType } from "@/db/schema";
+import { handleCopy } from "@/lib/utils";
 import { ColumnDef } from "@tanstack/react-table";
 import { Copy, CopySlash, Link2Icon } from "lucide-react";
 import Link from "next/link";
@@ -57,7 +58,7 @@ export const columns: ColumnDef<FullContentType>[] = [
     header: () => {
       return <div className="w-full flex justify-center">Content</div>;
     },
-    cell: ({ row }) => {
+    cell: ({}) => {
       return <div className="flex w-full justify-center">asd</div>;
     },
   },
@@ -77,30 +78,39 @@ export const columns: ColumnDef<FullContentType>[] = [
       return (
         <div className="w-full flex justify-end">
           <ActionsDropdown book={row.original}>
-            <>
-              <DropdownMenuItem
-                onClick={() =>
-                  window.navigator.clipboard.writeText(
-                    row.original.apiKeys[0].key,
-                  )
-                }
-                className="flex items-center gap-2"
-              >
-                <CopySlash size={16} />
-                Copy API key
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                onClick={() =>
-                  window.navigator.clipboard.writeText(
-                    `${process.env.NEXT_PUBLIC_AE}/${process.env.NEXT_PUBLIC_AEA}/books/${row.original.apiKeys[0].key}/all`,
-                  )
-                }
-                className="flex items-center gap-2"
-              >
-                <Copy size={16} />
-                Copy API endpoint
-              </DropdownMenuItem>
-            </>
+            {row.original.apiKeys.length !== 0 ? (
+              <>
+                <DropdownMenuItem
+                  onClick={() => handleCopy(row.original.apiKeys[0].key)}
+                  className="flex items-center gap-2"
+                >
+                  <CopySlash size={16} />
+                  Copy API key
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() =>
+                    handleCopy(
+                      `${process.env.NEXT_PUBLIC_AE}/${process.env.NEXT_PUBLIC_AEA}`,
+                    )
+                  }
+                  className="flex items-center gap-2"
+                >
+                  <Copy size={16} />
+                  Copy base url
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() =>
+                    handleCopy(
+                      `${process.env.NEXT_PUBLIC_AE}/${process.env.NEXT_PUBLIC_AEA}/books/${row.original.apiKeys[0].key}/all`,
+                    )
+                  }
+                  className="flex items-center gap-2"
+                >
+                  <Copy size={16} />
+                  Copy API endpoint
+                </DropdownMenuItem>
+              </>
+            ) : null}
           </ActionsDropdown>
         </div>
       );

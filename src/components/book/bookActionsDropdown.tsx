@@ -1,6 +1,6 @@
 "use client";
 
-import { ContentType, FullContentType } from "@/db/schema";
+import { FullContentType } from "@/db/schema";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,9 +9,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "../ui/button";
-import { Copy, Plus, Sparkles, Trash } from "lucide-react";
+import { Copy, Plus, Trash } from "lucide-react";
 import { useBook } from "@/store/book";
 import { AddKey } from "../addKey";
+import { handleCopy } from "@/lib/utils";
 
 export const BookActionsDropdown = ({ data }: { data: FullContentType }) => {
   const { removeBook } = useBook();
@@ -29,7 +30,7 @@ export const BookActionsDropdown = ({ data }: { data: FullContentType }) => {
             <>
               <DropdownMenuItem
                 onClick={() =>
-                  window.navigator.clipboard.writeText(
+                  handleCopy(
                     `${process.env.NEXT_PUBLIC_AE}/${process.env.NEXT_PUBLIC_AEA}/books/${data.apiKeys[0].key}/all`,
                   )
                 }
@@ -40,7 +41,7 @@ export const BookActionsDropdown = ({ data }: { data: FullContentType }) => {
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() =>
-                  window.navigator.clipboard.writeText(
+                  handleCopy(
                     `${process.env.NEXT_PUBLIC_AE}/${process.env.NEXT_PUBLIC_AEA}`,
                   )
                 }
@@ -50,9 +51,7 @@ export const BookActionsDropdown = ({ data }: { data: FullContentType }) => {
                 Copy base url
               </DropdownMenuItem>
               <DropdownMenuItem
-                onClick={() =>
-                  window.navigator.clipboard.writeText(data.apiKeys[0].key)
-                }
+                onClick={() => handleCopy(data.apiKeys[0].key)}
                 className="flex gap-2 items-center"
               >
                 <Copy size={16} />

@@ -1,4 +1,5 @@
 import { type ClassValue, clsx } from "clsx";
+import { toast } from "sonner";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
@@ -14,4 +15,10 @@ export function generateStrongToken(length: number = 64): string {
     token += alphabet.charAt(randomIndex);
   }
   return token;
+}
+
+export function handleCopy(text: string) {
+  navigator.clipboard.writeText(text).then(() => {
+    toast.success("Copied to clipboard");
+  });
 }
