@@ -37,4 +37,9 @@ const settingsMenu = [
     link: "/settings/profile",
     disabled: false,
   },
+  {
+    name: "Billing",
+    link: "/settings/billing",
+    disabled: true,
+  },
 ];

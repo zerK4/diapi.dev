@@ -4,9 +4,9 @@ import { usePathname } from "next/navigation";
 import React, { useEffect, useRef } from "react";
 import anime from "animejs";
 import AddBook from "./addBook";
-// import { Button } from "./ui/button";
-// import { Diapi } from "diapio";
-// import { ContentApiResponse } from "../../diapio.config";
+import { Button } from "./ui/button";
+import { Diapi } from "diapio";
+import { ContentApiResponse } from "../../diapio.config";
 
 function PageBanner({
   title = undefined,
@@ -19,16 +19,16 @@ function PageBanner({
 }) {
   const pathName = usePathname();
   const titleRef = useRef<HTMLHeadingElement>(null);
-  // const diapi = new Diapi<ContentApiResponse>({
-  //   apiKey: "diapi-d9cd4bfb-da10-4595-8106-46f89f4e1e39-8oFZpMQe5CzJLmVHDQEA19",
-  //   baseUrl: "http://localhost:3002/api/v1",
-  // });
+  const diapi = new Diapi<ContentApiResponse>({
+    apiKey: "diapi-ba43d06f-c61a-478d-9762-dc4c89fac206-w9CEUH3jtJL7jEn834X8co",
+    baseUrl: "https://apidiapidev-production.up.railway.app/api/v1",
+  });
 
-  // const getSmth = async () => {
-  //   const { message, content } = await diapi.getAll();
+  const getSmth = async () => {
+    const { message, content } = await diapi.getAll();
 
-  //   console.log(message, content, "asd");
-  // };
+    console.log(message, content, "asd");
+  };
 
   useEffect(() => {
     anime({
@@ -56,7 +56,9 @@ function PageBanner({
       </h2>
       <div id="page-banner-children">{children}</div>
       {add && <AddBook />}
-      {/* <Button onClick={getSmth}>Test diapi</Button> */}
+      <Button className="fixed bottom-2 left-2" onClick={getSmth}>
+        Test diapi
+      </Button>
     </div>
   );
 }
