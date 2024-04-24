@@ -26,23 +26,23 @@ export default async function Home() {
   });
 
   return (
-    <div>
-      <PageBanner add={false} title="Hi there">
-        <div className="text-sm flex items-center gap-2">
-          <Link href="/books" className="">
+    <>
+      <PageBanner add={false} title='Hi there'>
+        <div className='text-sm flex items-center gap-2'>
+          <Link href='/books' className=''>
             <span>Contents: {user?.contents.length}</span>
           </Link>
-          <Separator orientation="vertical" className="h-6 rotate-[20deg]" />
-          <Link href="/settings/keys">
+          <Separator orientation='vertical' className='h-6 rotate-[20deg]' />
+          <Link href='/settings/keys'>
             <span>Keys: {user?.apiKeys.length}</span>
           </Link>
         </div>
       </PageBanner>
-      <div className="p-2 md:px-36 lg:px-[15rem] flex flex-wrap gap-2">
+      <div className='p-2 md:px-36 lg:px-[15rem] flex flex-wrap gap-2'>
         {user?.contents.map((content, i) => (
           <SharedCard key={i} data={content} />
         ))}
       </div>
-    </div>
+    </>
   );
 }

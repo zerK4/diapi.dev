@@ -16,7 +16,11 @@ async function page() {
 
   if (!dbUser) redirect("/login");
 
-  return <div>logs</div>;
+  return (
+    <div className='flex items-center justify-center h-[30vh] text-zinc-500'>
+      coming soon.
+    </div>
+  );
 }
 
 export default page;
