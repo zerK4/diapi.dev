@@ -1,10 +1,8 @@
 import { getContentById } from "@/app/actions/bookActions";
-import { AddContent } from "@/components/book/addContent";
-import { BookActionsDropdown } from "@/components/book/bookActionsDropdown";
 import { EditContent } from "@/components/editContent";
 import EmptyPage from "@/components/emptyPage";
 import JsonPrettier from "@/components/jsonPrettier";
-import PageBanner from "@/components/pageBanner";
+import { Card } from "@/components/ui/card";
 import { redirect } from "next/navigation";
 
 async function page({ params }: { params: { id: string } }) {
@@ -13,25 +11,16 @@ async function page({ params }: { params: { id: string } }) {
   if (!data) redirect("/books");
 
   return (
-    <div className="">
-      <PageBanner add={false} title={data.name}>
-        <div className="flex items-center gap-2">
-          {data.content ? <BookActionsDropdown data={data} /> : null}
-          {!data.content && <AddContent data={data} />}
+    <div className=''>
+      {!data.content ? (
+        <div className='w-full grid place-content-center h-[25vh]'>
+          <EmptyPage content='Nothing here...' />
         </div>
-      </PageBanner>
-      <div className="mx-2 md:mx-36 lg:mx-[15rem] max-h-[70vh] overflow-auto">
-        {!data.content ? (
-          <div className="w-full grid place-content-center h-[25vh]">
-            <EmptyPage content="Nothing here..." />
-          </div>
-        ) : (
-          <div className="relative">
-            <EditContent data={data} />
-            <JsonPrettier data={data.content} />
-          </div>
-        )}
-      </div>
+      ) : (
+        <Card className='relative p-2 my-2 max-h-[70vh] overflow-auto'>
+          <JsonPrettier data={data.content} />
+        </Card>
+      )}
     </div>
   );
 }

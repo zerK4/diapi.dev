@@ -7,6 +7,7 @@ import AddBook from "./addBook";
 import { Button } from "./ui/button";
 import { Diapi } from "diapio";
 import { ContentApiResponse } from "../../diapio.config";
+import axios from "axios";
 
 function PageBanner({
   title = undefined,
@@ -21,13 +22,12 @@ function PageBanner({
   const titleRef = useRef<HTMLHeadingElement>(null);
 
   const diapi = new Diapi<ContentApiResponse>({
-    apiKey: "diapi-ba43d06f-c61a-478d-9762-dc4c89fac206-w9CEUH3jtJL7jEn834X8co",
+    apiKey: "diapi-620a1ba8-312c-4cb1-b201-2cea38dd434b-fWgGwZhdyGKxVKhV2Ha39a",
     baseUrl: "https://apidiapidev-production.up.railway.app/api/v1",
   });
 
   const getSmth = async () => {
     const { message, content } = await diapi.getAll();
-
     console.log(message, content, "asd");
   };
 
@@ -42,7 +42,7 @@ function PageBanner({
   }, [titleRef, pathName]);
 
   return (
-    <div className='h-40 flex relative items-center w-full justify-between px-2 md:px-36 lg:px-[15rem] border-b border-zinc-100 dark:border-zinc-900'>
+    <div className='h-40 flex relative items-center w-full justify-between px-2 md:px-36 lg:px-[15rem] border-b border-zinc-100 dark:border-zinc-900 bg-zinc-950 shadow-zinc-900'>
       <h2
         ref={titleRef}
         className='text-2xl font-bold opacity-0 translate-y-10'

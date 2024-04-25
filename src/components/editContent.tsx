@@ -52,25 +52,29 @@ export function EditContent({ data }: { data: FullContentType }) {
 
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        <Button className="sticky top-2" size={"icon"}>
+      <DialogTrigger asChild className=''>
+        <Button
+          className='sticky top-2 h-8 w-8'
+          size={"icon"}
+          variant={"ghost"}
+        >
           <Pen size={16} />
         </Button>
       </DialogTrigger>
-      <DialogContent className="min-h-[50vh] max-h-[90vh]">
-        <DialogHeader className="">
+      <DialogContent className='min-h-[50vh] max-h-[90vh]'>
+        <DialogHeader className=''>
           <DialogTitle>Edit Content</DialogTitle>
         </DialogHeader>
-        <div className="min-h-[50vh] max-h-[90vh]">
+        <div className='min-h-[50vh] max-h-[90vh]'>
           <Textarea
             value={value}
             onChange={(e) => handleChange(e)}
-            className="h-full"
+            className='h-full'
           />
         </div>
         <DialogFooter>
-          <div className="w-full flex items-center justify-between">
-            <span className="text-red-500">{message}</span>
+          <div className='w-full flex items-center justify-between'>
+            <span className='text-red-500'>{message}</span>
             {!message && <Button onClick={handleSave}>Save</Button>}
           </div>
         </DialogFooter>
